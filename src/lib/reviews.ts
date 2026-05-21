@@ -154,18 +154,12 @@ function simpleHash(s: string): string {
 
 // ---- Google Maps deep linking ----
 
-// TODO: Replace with the institute's actual Google Place ID for direct review deep-link.
-// Find via https://developers.google.com/maps/documentation/places/web-service/place-id
-export const GOOGLE_PLACE_ID = "";
-
-const SEARCH_QUERY = "Team Excellent Career Institute Patna";
+// Direct Google review link for Team Excellent Career Institute, Patna.
+// On Android/iOS this opens the Google Maps app review sheet directly.
+export const GOOGLE_REVIEW_URL = "https://g.page/r/CVq6Bv0UFVTiEBM/review";
 
 export function getReviewUrl(): string {
-  if (GOOGLE_PLACE_ID) {
-    return `https://search.google.com/local/writereview?placeid=${GOOGLE_PLACE_ID}`;
-  }
-  // Fallback: open Google Maps search for the place; user taps "Write a review"
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SEARCH_QUERY)}`;
+  return GOOGLE_REVIEW_URL;
 }
 
 export async function copyToClipboard(text: string): Promise<boolean> {
