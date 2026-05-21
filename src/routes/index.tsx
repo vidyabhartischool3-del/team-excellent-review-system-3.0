@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Toaster, toast } from "sonner";
 import { Atom, Stethoscope, Copy, Star, ArrowRight, RefreshCw, Check, ShieldCheck, Sparkles, Quote } from "lucide-react";
 import { generateReview, copyToClipboard, getReviewUrl, type Category } from "@/lib/reviews";
+import logoUrl from "@/assets/logo.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -56,8 +57,9 @@ function Index() {
 
       {/* Ambient glow blobs */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="float-slow absolute -top-40 -left-28 h-80 w-80 rounded-full bg-primary/40 blur-[100px]" />
-        <div className="float-slow absolute top-1/3 -right-28 h-96 w-96 rounded-full bg-[oklch(0.82_0.20_70)]/25 blur-[110px]" style={{ animationDelay: "2s" }} />
+        <div className="float-slow absolute -top-40 -left-28 h-80 w-80 rounded-full bg-primary/50 blur-[100px]" />
+        <div className="float-slow absolute top-1/3 -right-28 h-96 w-96 rounded-full bg-[oklch(0.72_0.22_300)]/35 blur-[120px]" style={{ animationDelay: "2s" }} />
+        <div className="float-slow absolute bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[oklch(0.42_0.22_295)]/40 blur-[100px]" style={{ animationDelay: "4s" }} />
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
       </div>
 
@@ -66,10 +68,11 @@ function Index() {
         <header className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div
-              className="relative grid h-10 w-10 place-items-center rounded-xl text-primary-foreground font-black shadow-lg"
-              style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }}
+              className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-2xl"
+              style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-icon-3d)" }}
             >
-              <span className="text-base">TE</span>
+              <img src={logoUrl} alt="Team Excellent" className="h-9 w-9 object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]" />
+              <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-2xl bg-gradient-to-b from-white/25 to-transparent" />
             </div>
             <div className="leading-tight">
               <div className="text-[13px] font-bold tracking-tight">Team Excellent</div>
@@ -78,7 +81,10 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-1.5 rounded-full border border-border bg-card/50 px-2.5 py-1.5 backdrop-blur-xl">
+          <div
+            className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-2.5 py-1.5 backdrop-blur-xl"
+            style={{ boxShadow: "0 1px 0 0 oklch(1 0 0 / 0.15) inset, 0 4px 12px -4px oklch(0 0 0 / 0.4)" }}
+          >
             <ShieldCheck className="h-3.5 w-3.5 text-primary" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-foreground/80">Verified</span>
           </div>
@@ -94,21 +100,44 @@ function Index() {
               transition={{ duration: 0.35, ease: "easeOut" }}
               className="flex flex-1 flex-col justify-center"
             >
+              {/* Hero 3D logo */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.7, rotate: -8 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ type: "spring", stiffness: 140, damping: 14 }}
+                className="relative mx-auto mt-6 h-28 w-28"
+              >
+                <div
+                  aria-hidden
+                  className="absolute inset-0 rounded-[32px] blur-2xl"
+                  style={{ background: "var(--gradient-primary)", opacity: 0.55 }}
+                />
+                <div
+                  className="relative grid h-full w-full place-items-center overflow-hidden rounded-[28px]"
+                  style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-icon-3d)" }}
+                >
+                  <img src={logoUrl} alt="Team Excellent logo" className="h-20 w-20 object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]" />
+                  <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/30 to-transparent" />
+                  <span aria-hidden className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/20" />
+                </div>
+              </motion.div>
+
               <div className="mt-8">
                 <motion.span
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 }}
-                  className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-primary backdrop-blur-xl"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground/90 backdrop-blur-xl"
+                  style={{ boxShadow: "0 1px 0 0 oklch(1 0 0 / 0.15) inset" }}
                 >
-                  <Sparkles className="h-3 w-3" />
+                  <Sparkles className="h-3 w-3 text-primary" />
                   <span>30-second review</span>
                 </motion.span>
                 <motion.h1
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
-                  className="mt-5 text-[44px] font-black leading-[0.95] tracking-[-0.03em]"
+                  className="mt-5 text-[42px] font-black leading-[0.95] tracking-[-0.035em]"
                 >
                   What are you
                   <br />
@@ -224,12 +253,13 @@ function Index() {
                 <motion.button
                   whileTap={{ scale: 0.97 }}
                   onClick={handleCopyAndReview}
-                  className="shimmer group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl px-6 py-[18px] text-[15px] font-bold tracking-tight text-primary-foreground"
+                  className="shimmer group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-[20px] px-6 py-[18px] text-[15px] font-bold tracking-tight text-primary-foreground"
                   style={{
                     background: "var(--gradient-primary)",
-                    boxShadow: "var(--shadow-glow)",
+                    boxShadow: "var(--shadow-3d-btn)",
                   }}
                 >
+                  <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[20px] bg-gradient-to-b from-white/25 to-transparent" />
                   <span className="relative z-10 flex items-center gap-2">
                     {copied ? <Check className="h-[18px] w-[18px]" /> : <Copy className="h-[18px] w-[18px]" />}
                     {copied ? "Copied — opening Maps" : "Copy & Post on Google"}
@@ -269,20 +299,22 @@ function CategoryCard({
       transition={{ delay, duration: 0.4, ease: "easeOut" }}
       whileTap={{ scale: 0.97 }}
       onClick={onClick}
-      className="group relative flex items-center justify-between overflow-hidden rounded-2xl border border-border bg-card p-[18px] text-left backdrop-blur-2xl transition active:border-primary/60"
+      className="group relative flex items-center justify-between overflow-hidden rounded-[22px] border border-white/10 bg-white/[0.04] p-[18px] text-left backdrop-blur-2xl transition active:border-primary/60"
       style={{ boxShadow: "var(--shadow-card)" }}
     >
       <div
         aria-hidden
         className="pointer-events-none absolute -top-px left-6 right-6 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, oklch(1 0 0 / 0.2), transparent)" }}
+        style={{ background: "linear-gradient(90deg, transparent, oklch(1 0 0 / 0.35), transparent)" }}
       />
       <div className="flex items-center gap-4">
         <div
-          className="relative grid h-14 w-14 place-items-center rounded-xl text-primary-foreground transition"
-          style={{ background: "var(--gradient-primary)", boxShadow: "0 8px 24px -8px oklch(0.72 0.21 45 / 0.6)" }}
+          className="relative grid h-14 w-14 place-items-center overflow-hidden rounded-[18px] text-primary-foreground"
+          style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-icon-3d)" }}
         >
           {icon}
+          <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/30 to-transparent" />
+          <span aria-hidden className="pointer-events-none absolute inset-0 rounded-[18px] ring-1 ring-inset ring-white/20" />
         </div>
         <div>
           <div className="text-[26px] font-black leading-none tracking-[-0.02em]">{label}</div>
@@ -291,7 +323,10 @@ function CategoryCard({
           </div>
         </div>
       </div>
-      <div className="grid h-9 w-9 place-items-center rounded-full border border-border bg-background/40 text-foreground/80 transition group-active:bg-primary group-active:text-primary-foreground">
+      <div
+        className="grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/5 text-foreground/80 backdrop-blur-xl transition group-active:bg-primary group-active:text-primary-foreground"
+        style={{ boxShadow: "0 1px 0 0 oklch(1 0 0 / 0.15) inset" }}
+      >
         <ArrowRight className="h-4 w-4" />
       </div>
     </motion.button>
