@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Toaster, toast } from "sonner";
-import { Atom, Stethoscope, Copy, Star, ArrowRight, RefreshCw, Check } from "lucide-react";
+import { Atom, Stethoscope, Copy, Star, ArrowRight, RefreshCw, Check, ShieldCheck, Sparkles, Quote } from "lucide-react";
 import { generateReview, copyToClipboard, getReviewUrl, type Category } from "@/lib/reviews";
 
 export const Route = createFileRoute("/")({
@@ -49,35 +49,38 @@ function Index() {
 
   return (
     <main
-      className="relative min-h-[100dvh] overflow-hidden text-foreground"
+      className="noise relative min-h-[100dvh] overflow-hidden text-foreground"
       style={{ background: "var(--gradient-hero)" }}
     >
       <Toaster theme="dark" position="top-center" richColors />
 
       {/* Ambient glow blobs */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-32 -left-24 h-72 w-72 rounded-full bg-primary/30 blur-3xl" />
-        <div className="absolute top-1/2 -right-24 h-80 w-80 rounded-full bg-primary/20 blur-3xl" />
+        <div className="float-slow absolute -top-40 -left-28 h-80 w-80 rounded-full bg-primary/40 blur-[100px]" />
+        <div className="float-slow absolute top-1/3 -right-28 h-96 w-96 rounded-full bg-[oklch(0.82_0.20_70)]/25 blur-[110px]" style={{ animationDelay: "2s" }} />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
       </div>
 
-      <div className="relative mx-auto flex min-h-[100dvh] w-full max-w-xl flex-col px-5 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+      <div className="relative mx-auto flex min-h-[100dvh] w-full max-w-md flex-col px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         {/* Header */}
         <header className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground font-black">
-              T
+          <div className="flex items-center gap-2.5">
+            <div
+              className="relative grid h-10 w-10 place-items-center rounded-xl text-primary-foreground font-black shadow-lg"
+              style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }}
+            >
+              <span className="text-base">TE</span>
             </div>
             <div className="leading-tight">
-              <div className="text-sm font-semibold tracking-tight">Team Excellent</div>
-              <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+              <div className="text-[13px] font-bold tracking-tight">Team Excellent</div>
+              <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
                 Career Institute
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-1 rounded-full border border-border bg-card/40 px-3 py-1.5 backdrop-blur">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="h-3.5 w-3.5 fill-primary text-primary" />
-            ))}
+          <div className="flex items-center gap-1.5 rounded-full border border-border bg-card/50 px-2.5 py-1.5 backdrop-blur-xl">
+            <ShieldCheck className="h-3.5 w-3.5 text-primary" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-foreground/80">Verified</span>
           </div>
         </header>
 
@@ -91,40 +94,72 @@ function Index() {
               transition={{ duration: 0.35, ease: "easeOut" }}
               className="flex flex-1 flex-col justify-center"
             >
-              <div className="mt-10">
-                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/40 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-muted-foreground backdrop-blur">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" /> 30 second review
-                </span>
-                <h1 className="mt-5 text-5xl font-black leading-[1.02] tracking-tight sm:text-6xl">
-                  Preparing
+              <div className="mt-8">
+                <motion.span
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 }}
+                  className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-primary backdrop-blur-xl"
+                >
+                  <Sparkles className="h-3 w-3" />
+                  <span>30-second review</span>
+                </motion.span>
+                <motion.h1
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="mt-5 text-[44px] font-black leading-[0.95] tracking-[-0.03em]"
+                >
+                  What are you
                   <br />
-                  <span className="bg-clip-text text-transparent" style={{ backgroundImage: "var(--gradient-primary)" }}>
-                    for?
-                  </span>
-                </h1>
-                <p className="mt-4 max-w-sm text-base text-muted-foreground">
-                  Pick your exam — we'll draft your honest review in one tap.
-                </p>
+                  <span className="text-gradient">preparing for?</span>
+                </motion.h1>
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 }}
+                  className="mt-4 max-w-xs text-[15px] leading-relaxed text-muted-foreground"
+                >
+                  Tap your exam — we'll craft an honest review and open Google Maps in one go.
+                </motion.p>
               </div>
 
-              <div className="mt-10 grid gap-4">
+              <div className="mt-9 grid gap-3.5">
                 <CategoryCard
                   label="NEET"
                   sub="Medical aspirants"
                   icon={<Stethoscope className="h-7 w-7" />}
                   onClick={() => chooseCategory("NEET")}
+                  delay={0.2}
                 />
                 <CategoryCard
                   label="JEE"
                   sub="Engineering aspirants"
                   icon={<Atom className="h-7 w-7" />}
                   onClick={() => chooseCategory("JEE")}
+                  delay={0.28}
                 />
               </div>
 
-              <p className="mt-8 text-center text-xs text-muted-foreground">
-                Your support helps fellow aspirants find the right coaching.
-              </p>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="mt-8 flex items-center justify-center gap-4 text-[11px] text-muted-foreground"
+              >
+                <div className="flex items-center gap-1.5">
+                  <div className="flex -space-x-1">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className="h-3 w-3 fill-primary text-primary" />
+                    ))}
+                  </div>
+                  <span className="font-semibold text-foreground/80">4.9</span>
+                </div>
+                <span className="h-3 w-px bg-border" />
+                <span>2,400+ reviews</span>
+                <span className="h-3 w-px bg-border" />
+                <span>Patna</span>
+              </motion.div>
             </motion.section>
           ) : (
             <motion.section
@@ -135,37 +170,52 @@ function Index() {
               transition={{ duration: 0.35, ease: "easeOut" }}
               className="flex flex-1 flex-col"
             >
-              <div className="mt-8">
+              <div className="mt-7">
                 <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-primary backdrop-blur-xl">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_10px] shadow-primary" />
                     {category} aspirant
                   </span>
                   <button
                     onClick={regenerate}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/40 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur transition hover:text-foreground active:scale-95"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/50 px-3 py-1.5 text-[11px] font-medium text-muted-foreground backdrop-blur-xl transition hover:text-foreground active:scale-95"
                   >
                     <RefreshCw className="h-3.5 w-3.5" /> New
                   </button>
                 </div>
-                <h2 className="mt-4 text-3xl font-black leading-tight tracking-tight sm:text-4xl">
-                  Your review is ready.
+                <h2 className="mt-4 text-[32px] font-black leading-[0.98] tracking-[-0.025em]">
+                  Your review<br />
+                  <span className="text-gradient">is ready.</span>
                 </h2>
               </div>
 
               <motion.div
                 key={review}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="mt-5 rounded-2xl border border-border bg-card p-5 backdrop-blur-xl"
-                style={{ boxShadow: "var(--shadow-glow)" }}
+                initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+                className="relative mt-5 overflow-hidden rounded-3xl border border-border bg-card p-5 backdrop-blur-2xl"
+                style={{ boxShadow: "var(--shadow-card)" }}
               >
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -top-px left-6 right-6 h-px"
+                  style={{ background: "linear-gradient(90deg, transparent, oklch(1 0 0 / 0.25), transparent)" }}
+                />
+                <Quote className="absolute right-4 top-4 h-8 w-8 text-primary/15" />
                 <div className="mb-3 flex items-center gap-1">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.1 + i * 0.05 }}
+                    >
+                      <Star className="h-[18px] w-[18px] fill-primary text-primary drop-shadow-[0_0_8px_oklch(0.72_0.21_45_/_0.5)]" />
+                    </motion.div>
                   ))}
                 </div>
-                <p className="whitespace-pre-line text-[15px] leading-relaxed text-foreground/90">
+                <p className="whitespace-pre-line text-[15px] leading-[1.65] text-foreground/90">
                   {review}
                 </p>
               </motion.div>
@@ -174,20 +224,21 @@ function Index() {
                 <motion.button
                   whileTap={{ scale: 0.97 }}
                   onClick={handleCopyAndReview}
-                  className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl px-6 py-5 text-base font-bold text-primary-foreground"
+                  className="shimmer group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl px-6 py-[18px] text-[15px] font-bold tracking-tight text-primary-foreground"
                   style={{
                     background: "var(--gradient-primary)",
                     boxShadow: "var(--shadow-glow)",
                   }}
                 >
                   <span className="relative z-10 flex items-center gap-2">
-                    {copied ? <Check className="h-5 w-5" /> : <Copy className="h-5 w-5" />}
-                    Copy & Review on Google Maps
-                    <ArrowRight className="h-5 w-5 transition group-hover:translate-x-0.5" />
+                    {copied ? <Check className="h-[18px] w-[18px]" /> : <Copy className="h-[18px] w-[18px]" />}
+                    {copied ? "Copied — opening Maps" : "Copy & Post on Google"}
+                    <ArrowRight className="h-[18px] w-[18px] transition group-active:translate-x-1" />
                   </span>
                 </motion.button>
-                <p className="mt-3 text-center text-[11px] text-muted-foreground">
-                  We'll copy the review and open Google Maps — just paste & post.
+                <p className="mt-3 flex items-center justify-center gap-1.5 text-center text-[11px] text-muted-foreground">
+                  <ShieldCheck className="h-3 w-3 text-primary/70" />
+                  Auto-copied. Paste with long-press on Google Maps.
                 </p>
               </div>
             </motion.section>
@@ -203,29 +254,46 @@ function CategoryCard({
   sub,
   icon,
   onClick,
+  delay = 0,
 }: {
   label: string;
   sub: string;
   icon: React.ReactNode;
   onClick: () => void;
+  delay?: number;
 }) {
   return (
     <motion.button
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration: 0.4, ease: "easeOut" }}
       whileTap={{ scale: 0.97 }}
-      whileHover={{ y: -2 }}
       onClick={onClick}
-      className="group relative flex items-center justify-between overflow-hidden rounded-2xl border border-border bg-card p-5 text-left backdrop-blur-xl transition hover:border-primary/60"
+      className="group relative flex items-center justify-between overflow-hidden rounded-2xl border border-border bg-card p-[18px] text-left backdrop-blur-2xl transition active:border-primary/60"
+      style={{ boxShadow: "var(--shadow-card)" }}
     >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-px left-6 right-6 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, oklch(1 0 0 / 0.2), transparent)" }}
+      />
       <div className="flex items-center gap-4">
-        <div className="grid h-14 w-14 place-items-center rounded-xl bg-primary/15 text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
+        <div
+          className="relative grid h-14 w-14 place-items-center rounded-xl text-primary-foreground transition"
+          style={{ background: "var(--gradient-primary)", boxShadow: "0 8px 24px -8px oklch(0.72 0.21 45 / 0.6)" }}
+        >
           {icon}
         </div>
         <div>
-          <div className="text-2xl font-black tracking-tight">{label}</div>
-          <div className="text-xs uppercase tracking-[0.15em] text-muted-foreground">{sub}</div>
+          <div className="text-[26px] font-black leading-none tracking-[-0.02em]">{label}</div>
+          <div className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            {sub}
+          </div>
         </div>
       </div>
-      <ArrowRight className="h-5 w-5 text-muted-foreground transition group-hover:translate-x-1 group-hover:text-primary" />
+      <div className="grid h-9 w-9 place-items-center rounded-full border border-border bg-background/40 text-foreground/80 transition group-active:bg-primary group-active:text-primary-foreground">
+        <ArrowRight className="h-4 w-4" />
+      </div>
     </motion.button>
   );
 }
